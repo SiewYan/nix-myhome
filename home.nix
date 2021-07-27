@@ -11,7 +11,7 @@
   home.file.".dir_colors/dircolors".source = ../dircolors;
 
   # list of my essential packages
-  home.packages = with pkgs; [ git emacs htop root ];
+  home.packages = with pkgs; [ git emacs htop root python ];
 
   programs.bash = {
     enable = true;
