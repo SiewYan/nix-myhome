@@ -1,66 +1,46 @@
 { config, lib, pkgs, ... }:
 
-{
+let
+  imports = [ ./shell.nix ./git.nix ];
+
+  # Handly shell command to view the dependency tree of Nix packages
+  depends = pkgs.writeScriptBin "depends" ''
+    dep=$1
+    nix-store --query --requisites $(which $dep)
+  '';
+
+  git-hash = pkgs.writeScriptBin "git-hash" ''
+    nix-prefetch-url --unpack https://github.com/$1/$2/archive/$3.tar.gz
+  '';
+
+  wo = pkgs.writeScriptBin "wo" ''
+    readlink $(which $1)
+  '';
+
+  run = pkgs.writeScriptBin "run" ''
+    nix-shell --pure --run "$@"
+  '';
+
+in {
+  inherit imports;
+
+  # enable home manager
   programs.home-manager.enable = true;
 
-  home.username = "shoh";
-  home.homeDirectory = "/home/shoh";
+  # home.username = "$USER";
+  # home.homeDirectory = "/home/$USER";
+  # home.sessionVariables.EDITOR = "emacs";
 
-  # Raw configuration files
-  home.file.".vimrc".source = ../vimrc;
-  home.file.".dir_colors/dircolors".source = ../dircolors;
+  home = {
+    username = "$USER";
+    homeDirectory = "/home/$USER";
+    sessionVariables = {
+      EDITOR = "emacs";
+    };
+  };
 
-  # list of my essential packages
+  # Miscellaneous packages
   home.packages = with pkgs; [ git emacs htop root python ];
-
-  programs.bash = {
-    enable = true;
-    # profile (any shell)
-    profileExtra = ''
-      source /usr/share/defaults/etc/profile
-      if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
-      	 . $HOME/.nix-profile/etc/profile.d/nix.sh;
-      fi
-    '';
-    # bash specific
-    initExtra = ''
-      source /usr/share/defaults/etc/profile
-      if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
-         . $HOME/.nix-profile/etc/profile.d/nix.sh;
-      fi
-      
-      eval `dircolors -b "$HOME/.dir_colors/dircolors"`
-    '';
-    shellAliases = {
-      # git
-      gitenv      = "eval \"$(ssh-agent -s)\"";
-      gitchk      = "ssh-add ~/.ssh/id_ed25519";
-      # general
-      lxplus      = "ssh shoh@lxplus.cern.ch";
-      nemacs      = "emacs -nw";
-      xopen       = "nautilus";
-      # nix
-      nixclean    = "nix-collect-garbage -d";
-      nixoptimize = "nix-store --optimise";
-      installnix  = "
-                     curl -L https://nixos.org/nix/install | sh;
-                     . /home/shoh/.nix-profile/etc/profile.d/nix.sh;
-                     nix-channel --add https://github.com/nix-community/home-manager/archive/release-21.05.tar.gz home-manager;
-                     nix-channel --update;
-                     nix-shell '<home-manager>' -A install;
-		     ";
-    };
-  };
-
-  # git
-  programs.git = {
-    enable = true;
-    userName = "SiewYan";
-    userEmail = "siew.yan.hoh@cern.ch";
-    aliases = {
-      st = "status";
-    };
-  };
 
   home.stateVersion = "21.05";
 }
