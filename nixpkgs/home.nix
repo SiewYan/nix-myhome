@@ -42,5 +42,9 @@ in {
   # Miscellaneous packages
   home.packages = with pkgs; [ git emacs htop root python ];
 
+  # Raw configuration files
+  home.file.".vimrc".source = ../vimrc;
+  home.file.".dir_colors/dircolors".source = ../dircolors;
+
   home.stateVersion = "21.05";
 }
