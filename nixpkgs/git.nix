@@ -6,11 +6,14 @@ let
   # extra config
   extraConfig = {
     core = {
-      editor = "emacs";
-      pager = "delta --dark";
+      editor     = "emacs";
+      pager      = "delta --dark";
       whitespace = "trailing-space,space-before-tab";
       };
-      credential.helper = "store --file ~/.config/.my-credentials";
+    credential = {
+      "https://github.com".username = "SiewYan";
+      helper = "store --file ~/.config/.my-credentials";
+      };
     };
 in
 {
