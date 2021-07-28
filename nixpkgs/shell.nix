@@ -20,6 +20,7 @@ let
       nixclean    = "nix-collect-garbage -d";
       nixoptimize = "nix-store --optimise";
       nixinstall  = "nix-env --query --installed";
+      nixupdate   = "nix-channel --update nixpkgs";
       installnix  = "
                      curl -L https://nixos.org/nix/install | sh;
                      . /home/shoh/.nix-profile/etc/profile.d/nix.sh;
@@ -27,6 +28,7 @@ let
                      nix-channel --update;
                      nix-shell '<home-manager>' -A install;
                    ";
+      usenix      = ". $HOME/.nix-profile/etc/profile.d/nix.sh; echo Nix appended to PATH";
 
       # docker
       #dockclean   = "docker image prune --force";
@@ -51,16 +53,18 @@ in {
     # bashrc
     initExtra = ''
       source /usr/share/defaults/etc/profile
-      if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
-         . $HOME/.nix-profile/etc/profile.d/nix.sh;
+
+      # system-wide ROOT
+      if [ -e $HOME/Installs/ROOT/install/bin/thisroot.sh ]; then
+      	 source /home/shoh/Installs/ROOT/install/bin/thisroot.sh;
       fi
+      
+      #if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
+      #   . $HOME/.nix-profile/etc/profile.d/nix.sh;
+      #fi
 
       eval `dircolors -b "$HOME/.dir_colors/dircolors"`
-
-      # Start up Docker daemon if not running
-      if [ $(docker-machine status default) != "Running" ]; then
-        docker-machine start default
-      fi
+      
     '';
     
     };

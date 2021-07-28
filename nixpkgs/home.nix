@@ -21,6 +21,11 @@ let
     nix-shell --pure --run "$@"
   '';
 
+  # bundle pacakges
+  # python : https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/python.section.md
+  python2Packages = with pkgs.python27Packages; [];
+  python3Packages = with pkgs.python38Packages; [ bpython pip setuptools ];
+
 in {
   inherit imports;
 
@@ -40,7 +45,18 @@ in {
   };
 
   # Miscellaneous packages
-  home.packages = with pkgs; [ git emacs htop root python ];
+  home.packages = with pkgs; [
+  		git
+		emacs
+		htop
+		python
+		python3
+		autoconf
+		curl
+		wget
+		exa
+		cmake
+		] ++ python2Packages ++ python3Packages;
 
   # Raw configuration files
   home.file.".vimrc".source = ../vimrc;
