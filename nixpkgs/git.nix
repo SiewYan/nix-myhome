@@ -9,9 +9,9 @@ let
       editor = "emacs";
       pager = "delta --dark";
       whitespace = "trailing-space,space-before-tab";
+      };
       credential.helper = "store --file ~/.config/.my-credentials";
     };
-  };
 in
 {
   programs.git = {
