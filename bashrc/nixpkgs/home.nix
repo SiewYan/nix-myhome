@@ -44,7 +44,7 @@ in {
     };
   };
 
-  # Miscellaneous packages
+  # Miscellaneous packages by default, use for dev
   home.packages = with pkgs; [
   		git
 		emacs
