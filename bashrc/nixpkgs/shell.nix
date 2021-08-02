@@ -32,7 +32,9 @@ let
 
       # docker
       #dockclean   = "docker image prune --force";
-      
+
+      # root
+      useroot     = "if [ -e $HOME/Installs/ROOT/install/bin/thisroot.sh ]; then source /home/shoh/Installs/ROOT/install/bin/thisroot.sh; fi";
     };
 
 in {
@@ -55,15 +57,18 @@ in {
       source /usr/share/defaults/etc/profile
 
       # system-wide ROOT
-      if [ -e $HOME/Installs/ROOT/install/bin/thisroot.sh ]; then
-      	 source /home/shoh/Installs/ROOT/install/bin/thisroot.sh;
-      fi
+      #if [ -e $HOME/Installs/ROOT/install/bin/thisroot.sh ]; then
+      #	 source /home/shoh/Installs/ROOT/install/bin/thisroot.sh;
+      #fi
       
       #if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
       #   . $HOME/.nix-profile/etc/profile.d/nix.sh;
       #fi
 
       eval `dircolors -b "$HOME/.dir_colors/dircolors"`
+
+      # To temporarily allow unfree packages
+      export NIXPKGS_ALLOW_UNFREE=1
       
     '';
     
