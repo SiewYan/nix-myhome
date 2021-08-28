@@ -13,6 +13,6 @@ nix-shell '<home-manager>' -A install;
 ```
 git clone https://github.com/SiewYan/nixfiles.git ~/Install/nixfiles
 cd ~/.config; rm -rf nixpkgs
-ln -s ~/Installs/nixfiles/bashrc/nixpkgs/ nixpkgs
+ln -s ~/Install/nixfiles/bashrc/nixpkgs/ nixpkgs
 home-manager switch; reload
 ```
