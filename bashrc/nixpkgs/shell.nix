@@ -28,13 +28,18 @@ let
                      nix-channel --update;
                      nix-shell '<home-manager>' -A install;
                    ";
-      usenix      = ". $HOME/.nix-profile/etc/profile.d/nix.sh; echo Nix appended to PATH";
+      usenix      = ". $HOME/.nix-profile/etc/profile.d/nix.sh; echo Nix appended to PATH; echo Once edited nix file, use reload";
 
       # docker
-      #dockclean   = "docker image prune --force";
+      #dockclean  = "docker image prune --force";
 
       # root
       useroot     = "if [ -e $HOME/Installs/ROOT/install/bin/thisroot.sh ]; then source /home/shoh/Installs/ROOT/install/bin/thisroot.sh; fi";
+
+      # pi cluster
+      pishutdown  = "for ip in master node1 node2 node3; do ssh pi@$ip.local 'sudo poweroff'; done";
+      # flatpak
+      flatup      = "flatpak update";
     };
 
 in {
@@ -69,7 +74,9 @@ in {
 
       # To temporarily allow unfree packages
       export NIXPKGS_ALLOW_UNFREE=1
-      
+
+      # kube
+      export KUBECONFIG=$HOME/.kube/k3s/config
     '';
     
     };
