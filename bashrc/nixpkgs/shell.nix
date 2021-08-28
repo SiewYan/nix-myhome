@@ -86,6 +86,11 @@ in {
     # bashrc
     initExtra = ''
       source /usr/share/defaults/etc/profile
+      
+      # source the backup bashrc (if any)
+      if [ -e $HOME/.bashrc.bak ]; then
+      	 source $HOME/.bashrc.bak;
+      fi
 
       # system-wide ROOT
       #if [ -e $HOME/Installs/ROOT/install/bin/thisroot.sh ]; then
