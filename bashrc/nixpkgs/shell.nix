@@ -14,7 +14,7 @@ let
       xopen       = "nautilus";
       grep        = "grep --color=auto";
       ls          = "exa";
-      reload      = "home-manager switch && source ~/.bashrc";
+      reload      = "cd $HOME/Install/nixfiles && git pull; home-manager switch && source ~/.bashrc";
       
       # nix
       nixclean    = "nix-collect-garbage -d";
@@ -85,7 +85,6 @@ in {
     
     # bashrc
     initExtra = ''
-      source /usr/share/defaults/etc/profile
       
       # source the backup bashrc (if any)
       if [ -e $HOME/.bashrc.bak ]; then
