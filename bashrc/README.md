@@ -12,6 +12,7 @@ nix-shell '<home-manager>' -A install;
 ## generate
 ```
 git clone https://github.com/SiewYan/nixfiles.git ~/Install/nixfiles
+mv ~/.bashrc ~/.bashrc.bak; mv ~/.profile ~/.profile.bak
 rm -rf ~/.config/nixpkgs
 cd ~/.config/nixpkgs; rm -rf nixpkgs
 ln -s ~/Install/nixfiles/nixpkgs nixpkgs
