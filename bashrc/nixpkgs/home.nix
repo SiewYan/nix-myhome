@@ -60,7 +60,7 @@ in {
 
   # Raw configuration files
   home.file.".vimrc".source = ../vimrc;
-  home.file.".dir_colors/dircolors".source = ../dircolors;
+  #home.file.".dir_colors/dircolors".source = ../dircolors;
 
   home.stateVersion = "21.05";
 }

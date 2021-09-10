@@ -34,8 +34,9 @@ let
       #dockclean  = "docker image prune --force";
 
       # root
-      useroot     = "if [ -e $HOME/Installs/ROOT/install/bin/thisroot.sh ]; then source /home/shoh/Installs/ROOT/install/bin/thisroot.sh; fi";
-
+      #useroot     = "if [ -e $HOME/Installs/ROOT/install/bin/thisroot.sh ]; then source /home/shoh/Installs/ROOT/install/bin/thisroot.sh; fi";
+      useroot     = "nix-shell $HOME/Install/nixfiles/shells/root-6p18.nix";
+      
       # pi cluster
       pishutdown  = "for ip in master node1 node2 node3; do ssh pi@$ip.local 'sudo poweroff'; done";
       # flatpak

@@ -22,7 +22,7 @@ let
 
     nativeBuildInputs = with pkgs; [ makeWrapper cmake pkg-config ];
     
-    buildInputs = with pkgs; [ ftgl gl2ps glew pcre zlib zstd llvm_5 libxml2 lz4 ninja
+    buildInputs = with pkgs; [ ftgl gl2ps glew pcre zlib zstd llvm_5 libxml2 lz4
       xz gsl xxHash libAfterImage giflib libjpeg libtiff libpng python.pkgs.numpy
       ]
       ++ lib.optionals (!stdenv.isDarwin) [ xlibs.libX11 xlibs.libXpm xlibs.libXft xlibs.libXext libGLU libGL ]
