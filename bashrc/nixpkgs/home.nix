@@ -23,8 +23,8 @@ let
 
   # bundle pacakges
   # python : https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/python.section.md
-  python2Packages = with pkgs.python27Packages; [];
-  python3Packages = with pkgs.python38Packages; [ bpython pip setuptools ];
+  python2Packages = with pkgs.python27Packages; [ pathlib ];
+  python3Packages = with pkgs.python38Packages; [ bpython pip setuptools numpy ];
 
 in {
   inherit imports;
